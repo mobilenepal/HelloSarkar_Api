@@ -14,13 +14,13 @@ Setting Up Your VHOST
 The following is a sample VHOST you might want to consider for your project.
 
 <VirtualHost *:80>
-   DocumentRoot "/var/www/hellosarkar/public"
-   ServerName hellosarkar.local
+   DocumentRoot "/var/www/hellosarkar_api/public"
+   ServerName hellosarkar_api.local
 
    # This should be omitted in the production environment
    SetEnv APPLICATION_ENV development
 
-   <Directory "/var/www/hellosarkar/public">
+   <Directory "/var/www/hellosarkar_api/public">
        Options Indexes MultiViews FollowSymLinks
        AllowOverride All
        Order allow,deny

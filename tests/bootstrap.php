@@ -16,3 +16,12 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 require_once 'Zend/Loader/Autoloader.php';
 Zend_Loader_Autoloader::getInstance();
+
+/** Zend_Application */
+require_once 'Zend/Application.php';
+
+$application = new Zend_Application(
+          APPLICATION_ENV,
+          APPLICATION_PATH . '/configs/application.ini');
+ini_set('error_reporting', E_ALL & ~E_NOTICE);
+$application->bootstrap();

@@ -13,16 +13,17 @@ class ComplainController extends Zend_Controller_Action
         // action body
     }
 
-    public function recieveAction()
+    public function receiveAction()
     {
-        // action body\
+        $this->getHelper('ViewRenderer')->setNoRender('false');
         try {
             if ($this->getRequest()->isPost()) {
                 $data = $this->getRequest()->getPost();
                 $model = new Model_DbTable_Complain;
                 $response = $model->insert($data);
                 if($response){
-                    return $response;
+                    $this->getResponse()->setHttpResponseCode(200);
+                    print $response;
                 }
                 else{
                     throw new Exception('Service Unavailable','503');
@@ -32,9 +33,10 @@ class ComplainController extends Zend_Controller_Action
                 throw new Exception('Bad Parameters','400');
             }
         } catch (Exception $e) {
-            return $this->getResponse()->setHttpResponseCode($e->getCode());
+            $this->getResponse()->setHttpResponseCode($e->getCode());
+            print 0;
         }
-        $this->_helper->layout()->disableLayout();
+        
     }
 
 }
