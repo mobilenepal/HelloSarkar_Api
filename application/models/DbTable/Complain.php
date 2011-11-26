@@ -5,16 +5,18 @@ class Model_DbTable_Complain extends Zend_Db_Table_Abstract
 
     protected $_name = 'complain';
 
-    public function insert($formData , $id=NULL)
+    public function insert($data , $id=NULL)
     {
-        unset($formData['submit']);
+        $data['status']=1;
+        $data['response_code']=$this->getresponsecode();
+        $data['created_on']=date('Y-m-d g:i:s');
         if($id == null)
         {
-            $result = parent::insert($formData);
+            $result = parent::insert($data);
         }
         else
         {
-            $result = parent::update($formData,'complain_id =' .$id);
+            $result = parent::update($data,'complain_id =' .$id);
         }
         return $result;
     }
