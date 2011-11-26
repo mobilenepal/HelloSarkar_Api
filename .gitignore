@@ -1,0 +1,6 @@
+.settings
+.project
+application/configs/application.ini
+.buildpath
+.zfproject.xml
+library/Zend
