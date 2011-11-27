@@ -1,4 +1,9 @@
 <?php
+/**
+ * Enter description here ...
+ * @author rohan
+ *
+ */
 class ComplainController extends Zend_Controller_Action
 {
     protected $logger;
@@ -6,6 +11,10 @@ class ComplainController extends Zend_Controller_Action
     {
         /* Initialize action controller here */
     }
+    /**
+     * Enter description here ...
+     * @throws Exception
+     */
     public function receiveAction ()
     {
         $this->logger = Zend_Registry::get('logger');
@@ -43,6 +52,10 @@ class ComplainController extends Zend_Controller_Action
         }
     }
     
+    /**
+     * Enter description here ...
+     * @throws Exception
+     */
     public function getstatusAction()
     {
     $this->logger = Zend_Registry::get('logger');
@@ -83,6 +96,10 @@ class ComplainController extends Zend_Controller_Action
         
     }
     
+    /**
+     * Enter description here ...
+     * @throws Exception
+     */
     public function queryAction()
     {
     $this->logger = Zend_Registry::get('logger');

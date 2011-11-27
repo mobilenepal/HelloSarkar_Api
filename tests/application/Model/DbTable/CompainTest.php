@@ -68,7 +68,9 @@ class Model_DbTable_CompainTest extends PHPUnit_Framework_TestCase
      */
     public function testGetResponseId ()
     {
-        $this->Model_DbTable_Complain->getResponseId();
+        $uniQid = $this->Model_DbTable_Complain->getResponseId();
+        $this->assertStringStartsWith('l', $uniQid);
+        $this->assertNotNull($uniQid);
     }
     public function testGetComplainStatus ()
     {
@@ -87,8 +89,15 @@ class Model_DbTable_CompainTest extends PHPUnit_Framework_TestCase
         'complain_type' => 'SC');
         $key = '0';
         $resultArray = $this->Model_DbTable_Complain->getComplainsByCondition(
-        $condition);
+        $condition);        
         $this->assertArrayHasKey($key, $resultArray);
+        
+       /* $condition = array('date' => '', 'district_id' => '2', 
+        'complain_type' => 'SC');
+        $key = '0';
+        $resultArray = $this->Model_DbTable_Complain->getComplainsByCondition(
+        $condition);
+        $this->assertArrayHasKey($key, $resultArray);*/
     }
     public function testXmlConverter ()
     {

@@ -25,6 +25,10 @@ class Model_DbTable_Complain extends Zend_Db_Table_Abstract
         $result = $this->select()->where('complain_id = ?', $id);
         return $this->fetchAll($result);
     }
+    /**
+     * Enter description here ...
+     * @return string
+     */
     public function getResponseId ()
     {
         $id = 0;
@@ -44,41 +48,84 @@ class Model_DbTable_Complain extends Zend_Db_Table_Abstract
         $responseCode = base_convert($time, 10, 36);
         return $responseCode;
     }
+    /**
+     * Enter description here ...
+     * @param unknown_type $condition
+     * @return Zend_Db_Table_Rowset_Abstract
+     */
     public function getComplainsByCondition ($condition = array())
     {
         $complain_type = null;
         $date = null;
         $district_id = null;
         extract($condition);
-        $select = $this->select()->from($this->_name, array('complain_text','address','name','response_code'))
-                ->where('complain_type = ?', $complain_type)
-                ->where('date = ?', $date)
-                ->where('district_id = ?', $district_id);
+        $select = $this->select()
+            ->from($this->_name, 
+        array('complain_text', 'address', 'name', 'response_code'))
+            ->where('complain_type = ?', $complain_type)
+            ->where('date = ?', $date)
+            ->where('district_id = ?', $district_id);
         $result = $this->fetchAll($select);
-        if($result)
-        $result = $result->toArray();
+        if ($result)
+            $result = $result->toArray();
         return $result;
-        
     }
-    
-    public function getComplainStatus($responseCode)
+    /**
+     * Enter description here ...
+     * @param unknown_type $responseCode
+     * @return Ambigous <Zend_Db_Table_Row_Abstract, NULL, unknown>
+     */
+    public function getComplainStatus ($responseCode)
     {
-        $select = $this->select()->from($this->_name, array('status'))
-                ->where('response_code = ?',$responseCode );
+        $select = $this->select()
+            ->from($this->_name, array('status'))
+            ->where('response_code = ?', $responseCode);
         $result = $this->fetchRow($select);
-        if($result)
-        $result = $result->toArray();
+        if ($result)
+            $result = $result->toArray();
         return $result;
     }
+    /**
+     * Enter description here ...
+     * @param unknown_type $response
+     * @return mixed
+     */
     public function xmlConverter ($response)
     {
-        
         $xml = new SimpleXMLElement('<complains/>');
         foreach ($response as $responsePair) {
-         $responseArray[] = array_flip($responsePair);   
-        }                
-        array_walk_recursive($responseArray, array($xml, 'addChild'));
-        return  $xml->asXML();
+            $responseArray[]['complain'] = $responsePair;
+        }                        
+        // creating object of SimpleXMLElement
+        $xmlObj = new SimpleXMLElement(
+        "<?xml version=\"1.0\"?><complains></complains>");
+        // function call to convert array to xml
+        $result = $this->array_to_xml($responseArray, $xmlObj);
+        return  $xmlObj->asXML();
+        
+    }
+    // function defination to convert array to xml
+    /**
+     * Enter description here ...
+     * @param unknown_type $records
+     * @param unknown_type $xml_records
+     * @return Ambiguous
+     */
+    function array_to_xml ($records, &$xml_records)
+    {
+        foreach ($records as $key => $value) {
+            if (is_array($value)) {
+                if (! is_numeric($key)) {
+                    $subnode = $xml_records->addChild("$key");
+                    $this->array_to_xml($value, $subnode);
+                } else {
+                    $this->array_to_xml($value, $xml_records);
+                }
+            } else {
+                $result = $xml_records->addChild("$key", "$value");
+            }            
+        }
+        return $result;
     }
 }
 
