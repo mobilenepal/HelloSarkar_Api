@@ -67,8 +67,39 @@ class Model_DbTable_CompainTest extends PHPUnit_Framework_TestCase
      * Tests Model_DbTable_Complain->getResponseId()
      */
     public function testGetResponseId ()
-    {              
+    {
         $this->Model_DbTable_Complain->getResponseId();
+    }
+    public function testGetComplainStatus ()
+    {
+        $responseCode = 'lxp913';
+        $expected = 'Query Resolved';
+        $resultArray = $this->Model_DbTable_Complain->getComplainStatus(
+        $responseCode);
+        if ($resultArray) {
+            $actual = $resultArray['status'];
+        }
+        $this->assertEquals($expected, $actual);
+    }
+    public function testGetComplainsByCondition ()
+    {
+        $condition = array('date' => '2011-11-12', 'district_id' => '2', 
+        'complain_type' => 'SC');
+        $key = '0';
+        $resultArray = $this->Model_DbTable_Complain->getComplainsByCondition(
+        $condition);
+        $this->assertArrayHasKey($key, $resultArray);
+    }
+    public function testXmlConverter ()
+    {
+        $response = array(
+        '0' => array('complain_text' => 'I was robbed', 'address' => 'Banepa', 
+        'response_code' => 'lxv912', 'name' => 'Anonymous'), 
+        '1' => array('complain_text' => 'Bus charged me more than actual rate', 'address' => 'Pulchowk', 
+        'response_code' => 'lxv918', 'name' => 'Anonymous'));
+        $actual = $this->Model_DbTable_Complain->xmlConverter($response);
+        $expected = '<?xml version="1.0"?><root><blub>bla</blub><bar>foo</bar><overflow>stack</overflow></root>';
+        $this->assertEquals($expected, $actual);
     }
 }
 
