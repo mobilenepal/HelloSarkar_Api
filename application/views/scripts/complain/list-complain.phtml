@@ -1,0 +1,31 @@
+<?php
+    if(is_array($this->datas)){
+        print '
+        	<table>
+          <tr>
+            <th>S.No.</th>
+            <th>Date of Complain</th>
+            <th>Complain</th>
+            <th>District</th>
+            <th>Complain Type</th>
+            <th>Action</th>
+          </tr>	
+        ';
+        $class = 'odd';
+        $count = 1;
+        foreach($this->datas as $val){
+             print "<tr class = '$class'>
+        				<td>$count</td>
+        				<td>".$val['date']."</td>
+        				<td>".$val['complain_text']."</td>
+        				<td>".$val['district_id']."</td>
+        				<td>".$val['complain_type']."</td>   
+        				<td>".$this->l('Edit','admin/edit-complain/id/'.$val['complain_id'])."</td>     				
+  					</tr>";
+             $count++;
+        }
+        print "
+        	</table >	
+        ";
+    }
+?>
