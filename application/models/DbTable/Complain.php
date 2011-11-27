@@ -61,7 +61,7 @@ class Model_DbTable_Complain extends Zend_Db_Table_Abstract
         extract($condition);
         $select = $this->select()
             ->from($this->_name, 
-        array('complain_text', 'address', 'name', 'response_code'))
+        array('complain_text', 'address', 'name', 'response_code', 'complain_type', 'date', 'district_id', 'status'))
             ->where('complain_type = ?', $complain_type)
             ->where('date = ?', $date)
             ->where('district_id = ?', $district_id);

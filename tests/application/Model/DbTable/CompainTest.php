@@ -89,7 +89,8 @@ class Model_DbTable_CompainTest extends PHPUnit_Framework_TestCase
         'complain_type' => 'SC');
         $key = '0';
         $resultArray = $this->Model_DbTable_Complain->getComplainsByCondition(
-        $condition);        
+        $condition);     
+        var_dump($resultArray);exit;   
         $this->assertArrayHasKey($key, $resultArray);
         
        /* $condition = array('date' => '', 'district_id' => '2', 
