@@ -118,8 +118,8 @@ class ComplainController extends Zend_Controller_Action
                     $this->getResponse()->setHttpResponseCode(200);
                     $this->logger->log('Succesful QueryPerformed', Zend_Log::INFO, 
                     'SUCCESS');
-                    $model->xmlConverter($response);
-                    print $response;
+                    $xml = $model->xmlConverter($response);
+                    print $xml;
                 } else {
                     throw new Exception('Service Unavailable', '503');
                 }
