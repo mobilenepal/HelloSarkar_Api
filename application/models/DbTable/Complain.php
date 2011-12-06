@@ -15,7 +15,7 @@ class Model_DbTable_Complain extends Zend_Db_Table_Abstract
         }
         return $responseCode;
     }
-    public function getAllComplains ()
+    public function getAllComplains()
     {
         $result = $this->select();
         return $this->fetchAll($result);
