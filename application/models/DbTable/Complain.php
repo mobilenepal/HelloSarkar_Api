@@ -10,6 +10,9 @@ class Model_DbTable_Complain extends Zend_Db_Table_Abstract
             $responseCode = $this->getResponseId();
             $data['response_code'] = $responseCode;
             $data['created_on'] = date('Y-m-d g:i:s');
+            $date = $data['date'];
+            $date = str_replace('/', '-', $date);
+            $date = str_replace('.', '-', $date);
             $result = parent::insert($data);
             return $responseCode;
         } else {                        
@@ -63,7 +66,9 @@ class Model_DbTable_Complain extends Zend_Db_Table_Abstract
         $complain_type = null;
         $date = null;
         $district_id = null;
-        extract($condition);
+        extract($condition); 
+        $date = str_replace('/', '-', $date);
+        $date = str_replace('.', '-', $date);       
         $select = $this->select()
             ->from($this->_name, 
         array('complain_text', 'address', 'name', 'response_code', 'complain_type', 'date', 'district_id', 'status'))
