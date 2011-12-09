@@ -1,1 +1,17 @@
-<?php echo $this->layout()->content; ?>
+<body>
+<?php
+echo $this->layout()->content;
+?>
+ <?php
+if ($this->placeholder('title')->toString()) :
+    ?>
+<h1 class="page-title"><?php
+    print $this->placeholder('title')?></h1>
+
+<?php endif;
+?>
+<?php
+$flashMessenger = $this->flashMessages();
+print $flashMessenger->getMessages();
+?>
+</body>

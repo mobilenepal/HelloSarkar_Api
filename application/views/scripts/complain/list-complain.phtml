@@ -1,15 +1,18 @@
 <?php
     if(is_array($this->datas)){
-        print '
+        print '        
         	<table>
-          <tr>
+        	<thead>
+          	<tr>
             <th>S.No.</th>
             <th>Date of Complain</th>
             <th>Complain</th>
             <th>District</th>
             <th>Complain Type</th>
+            <th>Complain Status</th>
             <th>Action</th>
           </tr>	
+          </thead>
         ';
         $class = 'odd';
         $count = 1;
@@ -19,7 +22,8 @@
         				<td>".$val['date']."</td>
         				<td>".$val['complain_text']."</td>
         				<td>".$val['district_id']."</td>
-        				<td>".$val['complain_type']."</td>   
+        				<td>".$val['complain_type']."</td>
+        				<td>".$val['status']."</td>   
         				<td>".$this->l('Edit','admin/edit-complain/id/'.$val['complain_id'])."</td>     				
   					</tr>";
              $count++;

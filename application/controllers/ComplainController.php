@@ -19,6 +19,7 @@ class ComplainController extends Zend_Controller_Action
     {
         $this->logger = Zend_Registry::get('logger');
         $this->getHelper('ViewRenderer')->setNoRender('false');
+        $this->_helper->layout()->disableLayout();
         try {
             if ($this->getRequest()->isPost()) {
                 $this->logger->log('Post Parameters Received', Zend_Log::INFO,
@@ -48,6 +49,7 @@ class ComplainController extends Zend_Controller_Action
             } else {
                 $this->logger->log($e->getMessage(), Zend_Log::ERR, 'RECEIVE: ERROR');
             }
+            $this->_response->setHttpResponseCode($e->getCode()); 
             print 0;
         }
     }
@@ -60,6 +62,7 @@ class ComplainController extends Zend_Controller_Action
     {
         $this->logger = Zend_Registry::get('logger');
         $this->getHelper('ViewRenderer')->setNoRender('false');
+        $this->_helper->layout()->disableLayout();
         try {
             if ($this->getRequest()->isPost()) {
                 $this->logger->log('Post Parameters Received', Zend_Log::INFO,
@@ -91,6 +94,7 @@ class ComplainController extends Zend_Controller_Action
             } else {
                 $this->logger->log($e->getMessage(), Zend_Log::ERR, 'STATUS: ERROR');
             }
+            $this->_response->setHttpResponseCode($e->getCode()); 
             print 0;
         }
 
@@ -104,6 +108,7 @@ class ComplainController extends Zend_Controller_Action
     {
         $this->logger = Zend_Registry::get('logger');
         $this->getHelper('ViewRenderer')->setNoRender('false');
+        $this->_helper->layout()->disableLayout();
         try {
             if ($this->getRequest()->isPost()) {
                 $this->logger->log('Post Parameters Received', Zend_Log::INFO,
@@ -134,6 +139,7 @@ class ComplainController extends Zend_Controller_Action
             } else {
                 $this->logger->log($e->getMessage(), Zend_Log::ERR, 'QUERY: ERROR');
             }
+            $this->_response->setHttpResponseCode($e->getCode()); 
             print 0;
         }
     }

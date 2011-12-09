@@ -3,17 +3,20 @@ class Model_DbTable_Complain extends Zend_Db_Table_Abstract
 {
     protected $_name = 'complain';
     public function insert ($data, $id = NULL)
-    {
-        $data['status'] = 1;
-        $responseCode = $this->getResponseId();
-        $data['response_code'] = $responseCode;
-        $data['created_on'] = date('Y-m-d g:i:s');
+    {     
+        unset($data['submit']);         
         if ($id == null) {
+            $data['status'] = 'Queued';
+            $responseCode = $this->getResponseId();
+            $data['response_code'] = $responseCode;
+            $data['created_on'] = date('Y-m-d g:i:s');
             $result = parent::insert($data);
-        } else {
-            $result = parent::update($data, 'complain_id =' . $id);
+            return $responseCode;
+        } else {                        
+            $result = parent::update($data, 'complain_id ='.$id);
+            return $result;
         }
-        return $responseCode;
+        
     }
     public function getAllComplains()
     {
@@ -23,7 +26,7 @@ class Model_DbTable_Complain extends Zend_Db_Table_Abstract
     public function getComplain ($id)
     {
         $result = $this->select()->where('complain_id = ?', $id);
-        return $this->fetchAll($result);
+        return $this->fetchRow($result);
     }
     /**
      * Enter description here ...
@@ -46,6 +49,8 @@ class Model_DbTable_Complain extends Zend_Db_Table_Abstract
         $time = time();
         $timeId = $time + $id;
         $responseCode = base_convert($time, 10, 36);
+        if($responseCode == 'id')
+        return 'l01123';
         return $responseCode;
     }
     /**
